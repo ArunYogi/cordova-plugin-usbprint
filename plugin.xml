@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-usbprint" version="0.0.1">
+
+  <name>USBPrint</name>
+
+  <description>
+    This Plugin allows you to print documents via USB printer.
+  </description>
+
+  <author>Arun Yokesh Kumar</author>
+
+  <license>Apache 2.0</license>
+
+  <keywords>cordova, plugin, USB, print, Mobile</keywords>
+
+  <repo>https://github.com/ArunYogi/cordova-plugin-usbprint.git</repo>
+
+  <issue>https://github.com/ArunYogi/cordova-plugin-usbprint/issues</issue>
+
+  <js-module src="www/usbprint.js" name="usbprint">
+    <clobbers target="window.cordova.plugins.UsbPrinter" />
+  </js-module>
+
+  <!-- android -->
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="PrinterService">
+        <param name="android-package" value="com.usbprint.cordova.PrinterService" />
+        <param name="onload" value="true"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/com/usbprint/cordova/PrinterService.java" target-dir="src/com/usbprint/cordova"/>
+    <source-file src="src/android/com/usbprint/cordova/Printer.java" target-dir="src/com/usbprint/cordova"/>
+  </platform>
+</plugin>
