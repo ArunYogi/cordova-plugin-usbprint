@@ -8,6 +8,9 @@ module.exports = {
     connect: function(printername, successCallback, failureCallback) {
         cordova.exec(successCallback, failureCallback, "PrinterService", "connect", [printername]);
     },
+    disconnect: function(printername, successCallback, failureCallback) {
+        cordova.exec(successCallback, failureCallback, "PrinterService", "disconnect", [printername]);
+    },
     getConnectedPrinters: function(successCallback, failureCallback) {
         cordova.exec(successCallback, failureCallback, "PrinterService", "getConnectedPrinters", []);
     },

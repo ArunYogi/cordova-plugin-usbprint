@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-usbprint",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "\n    This Plugin allows you to print documents via USB.\n  ",
   "cordova": {
     "id": "cordova-plugin-usbprint",

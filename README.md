@@ -20,6 +20,7 @@ window['cordova'].plugins.UsbPrinter....()
 
 * getConnectedPrinters(successCallback, failureCallback) :=> Gets all connected USB printer.
 * connect(printername, successCallback, failureCallback) :=> Connect or gets permission for the mentioned printer identified via "printername". "printername" can be identified from the printers list got from above method call.
+* disconnect(printername, successCallback, failureCallback) :=> Disconnect or gets permission for the mentioned printer identified via "printername". "printername" can be identified from the printers list got from above method call.
 * print(printername, msg, successCallback, failureCallback) :=> Get all connected USB printer.
 * isPaperAvailable(printername, successCallback, failureCallback) :=> Tells whether paper is available in mentioned printer.
 * sendCommand(printername, command, successCallback, failureCallback) :=> Sends POS command to the printer device.

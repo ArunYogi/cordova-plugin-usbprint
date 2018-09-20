@@ -134,6 +134,10 @@ public class PrinterService extends CordovaPlugin {
             String printer_name = args.getString(0);
             connect(printer_name, callbackContext);
             return true;
+        } else if (action.equals("disconnect")) {
+            String printer_name = args.getString(0);
+            disconnect(printer_name, callbackContext);
+            return true;
         } else if (action.equals("print")) {
             String printer_name = args.getString(0);
             String msg = args.getString(1);
@@ -192,7 +196,17 @@ public class PrinterService extends CordovaPlugin {
             Log.d(TAG, "Requesting permission for the device " + device.getDeviceId());
             getPermission(device, callbackContext);
         } else {
-            callbackContext.error("No Printer of specified name is connected to check");
+            callbackContext.error("No Printer of specified name is connected");
+        }
+    }
+
+    private void disconnect(String printer_name, final CallbackContext callbackContext) {
+        Printer device = printers.get(printer_name);
+        if (device != null) {
+            device.close();
+            callbackContext.success("DisConnected");
+        } else {
+            callbackContext.error("No Printer of specified name is connected");
         }
     }
 
@@ -201,7 +215,7 @@ public class PrinterService extends CordovaPlugin {
         if (device != null) {
             callbackContext.success(String.valueOf(device.isPaperAvailable()));
         } else {
-            callbackContext.error("No Printer of specified name is connected to check");
+            callbackContext.error("No Printer of specified name is connected");
         }
     }
 
@@ -211,7 +225,7 @@ public class PrinterService extends CordovaPlugin {
             device.cutPaper(0);
             callbackContext.success("true");
         } else {
-            callbackContext.error("No Printer of specified name is connected to check");
+            callbackContext.error("No Printer of specified name is connected");
         }
     }
 
@@ -221,7 +235,7 @@ public class PrinterService extends CordovaPlugin {
             device.sendByte(command);
             callbackContext.success("Send");
         } else {
-            callbackContext.error("No Printer of specified name is connected to check");
+            callbackContext.error("No Printer of specified name is connected");
         }
     }
 
@@ -238,13 +252,13 @@ public class PrinterService extends CordovaPlugin {
                 callbackContext.error("Paper roll is empty");
             }
         } else {
-            callbackContext.error("No Printer of specified name is connected to check");
+            callbackContext.error("No Printer of specified name is connected");
         }
     }
 
     private synchronized void getPermission(UsbDevice dev, final CallbackContext callbackContext) {
         if (dev == null) {
-            callbackContext.error("No Printer of specified name is connected to check");
+            callbackContext.error("No Printer of specified name is connected");
             return;
         }
         String printer_name = this.constructPrinterName(dev);
