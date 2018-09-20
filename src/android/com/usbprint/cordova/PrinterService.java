@@ -204,6 +204,10 @@ public class PrinterService extends CordovaPlugin {
         Printer device = printers.get(printer_name);
         if (device != null) {
             device.close();
+            printers.remove(printer_name);
+            if (printers.size() == 0) {
+                applicationContext.unregisterReceiver(detachReceiver);
+            }
             callbackContext.success("DisConnected");
         } else {
             callbackContext.error("No Printer of specified name is connected");
