@@ -168,17 +168,7 @@ public class PrinterService extends CordovaPlugin {
         for (UsbDevice usbDevice : lstPrinters) {
             if (UsbConstants.USB_CLASS_PRINTER == usbDevice.getInterface(0).getInterfaceClass()) {
                 try {
-                    JSONObject printerObj = new JSONObject()
-                            .put("printername", usbDevice.getVendorId() + "_" + usbDevice.getDeviceId())
-                            .put("productName", usbDevice.getProductName())
-                            .put("manufacturerName", usbDevice.getManufacturerName())
-                            .put("deviceId", usbDevice.getDeviceId()).put("deviceName", usbDevice.getDeviceName())
-                            .put("serialNumber", usbDevice.getSerialNumber()).put("vendorId", usbDevice.getVendorId())
-                            .put("protocol", usbDevice.getDeviceProtocol())
-                            .put("deviceClass",
-                                    usbDevice.getDeviceClass() + "_" + translateDeviceClass(usbDevice.getDeviceClass()))
-                            .put("deviceSubClass", usbDevice.getDeviceSubclass());
-                    printers.put(printerObj);
+                    printers.put(this.injectDeviceInfo(usbDevice));
                 } catch (JSONException err) {
                     Log.e(TAG, "Exception in parsing to JSON object");
                 }
@@ -188,6 +178,25 @@ public class PrinterService extends CordovaPlugin {
             Log.d(TAG, "No Printers identified");
         }
         callbackContext.success(printers);
+    }
+
+    private JSONObject injectDeviceInfo(UsbDevice usbDevice) {
+        JSONObject printerObj = new JSONObject()
+                .put("printername", usbDevice.getVendorId() + "_" + usbDevice.getDeviceId())
+                .put("deviceId", usbDevice.getDeviceId()).put("vendorId", usbDevice.getVendorId());
+        // try {
+        //     printerObj.put("productName", usbDevice.getProductName());
+        //     printerObj.put("manufacturerName", usbDevice.getManufacturerName());
+        //     printerObj.put("deviceName", usbDevice.getDeviceName());
+        //     printerObj.put("serialNumber", usbDevice.getSerialNumber());
+        //     printerObj.put("protocol", usbDevice.getDeviceProtocol());
+        //     printerObj.put("deviceClass",
+        //             usbDevice.getDeviceClass() + "_" + translateDeviceClass(usbDevice.getDeviceClass()));
+        //     printerObj.put("deviceSubClass", usbDevice.getDeviceSubclass());
+        // } catch (Exception exp) {
+        //     Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
+        // }
+        return printerObj;
     }
 
     private void connect(String printer_name, final CallbackContext callbackContext) {
@@ -280,7 +289,8 @@ public class PrinterService extends CordovaPlugin {
                 p.changeStateToConnected();
                 this.printers.put(printer_name, p);
             } else {
-                Log.d(TAG, String.format("Already got permission for %s Device, so returning 'Connected' status.", printer_name));
+                Log.d(TAG, String.format("Already got permission for %s Device, so returning 'Connected' status.",
+                        printer_name));
                 callbackContext.success("Connected");
             }
         }
