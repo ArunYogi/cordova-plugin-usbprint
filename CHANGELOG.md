@@ -1,3 +1,9 @@
+<a name="0.0.3"></a>
+# 0.0.3 (2018-09-27)
+
+##  Features
+* As few proprietary device is not giving "Product Name" and other details, in those device, plugin is failing. Chanegd provide only bare minimum pritner details. Example "DeviceId and Vendor id".
+
 <a name="0.0.2"></a>
 # 0.0.2 (2018-09-21)
 
