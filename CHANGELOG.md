@@ -1,3 +1,9 @@
+<a name="0.0.4"></a>
+# 0.0.3 (2019-01-22)
+
+##  Features
+* Added safety check while unregistering Broadcase receiver for USB connection/disconnection.
+
 <a name="0.0.3"></a>
 # 0.0.3 (2018-09-27)
 

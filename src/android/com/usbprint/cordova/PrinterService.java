@@ -121,8 +121,16 @@ public class PrinterService extends CordovaPlugin {
     public void onDestroy() {
         synchronized (this) {
             this.printers.clear();
-            this.applicationContext.unregisterReceiver(this.detachReceiver);
-            this.applicationContext.unregisterReceiver(this.mPermissionReceiver);
+            try {
+                this.applicationContext.unregisterReceiver(this.detachReceiver);
+            } catch (Exception exp) {
+                Log.e(TAG, "Issue while unregistering USB detach listener",exp);
+            }
+            try {
+                this.applicationContext.unregisterReceiver(this.mPermissionReceiver);
+            } catch (Exception exp) {
+                Log.e(TAG, "Issue while unregistering USB permission listener", exp);
+            }
         }
     }
 
@@ -185,18 +193,19 @@ public class PrinterService extends CordovaPlugin {
                 .put("printername", usbDevice.getVendorId() + "_" + usbDevice.getDeviceId())
                 .put("deviceId", usbDevice.getDeviceId()).put("vendorId", usbDevice.getVendorId());
         // try {
-        //     printerObj.put("productName", usbDevice.getProductName());
-        //     printerObj.put("manufacturerName", usbDevice.getManufacturerName());
-        //     printerObj.put("deviceName", usbDevice.getDeviceName());
-        //     printerObj.put("serialNumber", usbDevice.getSerialNumber());
-        //     printerObj.put("protocol", usbDevice.getDeviceProtocol());
-        //     printerObj.put("deviceClass",
-        //             usbDevice.getDeviceClass() + "_" + translateDeviceClass(usbDevice.getDeviceClass()));
-        //     printerObj.put("deviceSubClass", usbDevice.getDeviceSubclass());
+        // printerObj.put("productName", usbDevice.getProductName());
+        // printerObj.put("manufacturerName", usbDevice.getManufacturerName());
+        // printerObj.put("deviceName", usbDevice.getDeviceName());
+        // printerObj.put("serialNumber", usbDevice.getSerialNumber());
+        // printerObj.put("protocol", usbDevice.getDeviceProtocol());
+        // printerObj.put("deviceClass",
+        // usbDevice.getDeviceClass() + "_" +
+        // translateDeviceClass(usbDevice.getDeviceClass()));
+        // printerObj.put("deviceSubClass", usbDevice.getDeviceSubclass());
         // } catch (Exception exp) {
-        //     Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
+        // Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
         // } catch (Error err) {
-        //     Log.e(TAG, "Error in parsing to JSON object" + err.getMessage());
+        // Log.e(TAG, "Error in parsing to JSON object" + err.getMessage());
         // }
         return printerObj;
     }
