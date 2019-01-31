@@ -12,7 +12,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArunYogi/paytm-cordova-plugin.git"
+    "url": "git+https://github.com/ArunYogi/cordova-plugin-usbprint.git"
   },
   "keywords": [
     "cordova",
@@ -26,7 +26,7 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ArunYogi/paytm-cordova-plugin/issues"
+    "url": "https://github.com/ArunYogi/cordova-plugin-usbprint/issues"
   },
-  "homepage": "https://github.com/ArunYogi/paytm-cordova-plugin#readme"
+  "homepage": "https://github.com/ArunYogi/cordova-plugin-usbprint#readme"
 }
